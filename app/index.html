@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Digital Marketing Optimization [yFiles Use Case]</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="shortcut icon" type="image/x-icon" sizes="any" href="favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <style>
+    .loading {
+      display: none;
+    }
+  </style>
+
+</head>
+<body class="loading">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <a class="navbar-brand" href="https://www.yworks.com" target="_blank">
+    <img src="assets/logo-yFiles.svg" height="30" class="d-inline-block align-top" alt="yFiles logo">
+    <span style="color:whitesmoke; margin: 0 20px 0 10px;" data-toggle="modal" data-target="#infoModal"
+          onclick="return false">Digital Marketing Optimization</span>
+  </a>
+  <div class="d-flex order-lg-1 ml-auto pr-2">
+    <ul class="navbar-nav flex-row">
+      <li class="nav-item mx-2 mx-lg-0" id="info-icon">
+        <span class="ref-icon" data-toggle="modal" data-target="#infoModal">
+          <img src="assets/info_icon.svg" alt="Open Info Dialog"/>
+        </span>
+      </li>
+      <li class="nav-item" id="github-icon">
+        <span class="ref-icon">
+        <a href="https://github.com/yWorks/graphs-in-digital-marketing" target="_blank">
+          <svg width="32" height="32" viewBox="0 0 16 16" version="1.1" aria-hidden="true"><path fill="#FFFFFF" fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+        </a>
+      </span>
+      </li>
+    </ul>
+  </div>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+          aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <form class="form-inline m-2 my-lg-0">
+      <div class="form-group mr-sm-2" id="nav-form">
+        <label for="ranger" class="label col-sm-3 col-form-label navbar-text">Threshold: </label>
+        <div class="col-sm">
+          <input type="range" class="form-control-range" id="ranger" max="16000" min="1000" step="1000"
+                 value="16000">
+        </div>
+      </div>
+      <button id="layoutButton" class="btn btn-secondary my-2 my-sm-0" type="button"><i class="fas fa-play mr-2"></i>Fresh Layout</button>
+    </form>
+  </div>
+</nav>
+
+
+<div id="graphComponent">
+  <div id="nodeColorPopupContent" class="popupContent" tabindex="0"></div>
+  <div id="edgeColorPopupContent" class="popupContent" tabindex="0"></div>
+</div>
+
+<div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <a href="https://www.yworks.com/products/yfiles-for-html" target="_blank" class="logo-link">
+          <img src="assets/logo-yFiles-about.svg" alt="yFiles for HTML Logo" class="logo-image"/>
+          <span class="logo-text">Digital Marketing Optimization</span>
+        </a>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="info">
+          <p>
+            This is the sample application for the yFiles use case about
+            <a href="https://www.yworks.com/use-case/graphs-in-digital-marketing-optimization">Graphs
+              in Digital Marketing Optimization</a>.
+          </p>
+          <p>
+            The app displays a Sankey diagram of the different paths that visitors take on a website - from the page
+            first viewed all the way to a conversion.
+          </p>
+          <p>
+            With the <strong>Threshold</strong>, users can filter the network to concentrate on the parts of interest.
+            It specifies a threshold which can best be understood as how many steps or touchpoints
+            the potential customer visited before being converted. A lower threshold means that more paths and
+            touchpoints are
+            shown and, hence, a more complex diagram.
+          </p>
+          <p>
+            This diagram can be integrated in Power BI, Tableau, or similar dashboard technologies.
+          </p>
+
+          <hr>
+
+          <p>
+            This application is powered by
+            <a href="https://www.yworks.com/products/yfiles-for-html" target="_blank">yFiles for HTML</a>,
+            the powerful diagramming library.
+          </p>
+          <p>
+            You can learn more about the many features that come with
+            <a href="https://www.yworks.com/products/yfiles" target="_blank">yFiles</a>
+            on the
+            <a href="https://www.yworks.com/products/yfiles/features" target="_blank"
+            >yFiles Features Overview</a
+            >.
+          </p>
+          <p>
+            If you want to try it for yourself, you can obtain a free evaluation version of yFiles in the
+            <a href="https://my.yworks.com/signup?product=YFILES_HTML_EVAL" target="_blank"
+            >yWorks Evaluation Center</a
+            >.
+          </p>
+          <p>
+            Want to know how this app is made? Take a look at the source code on <a
+            href="https://github.com/yWorks/graphs-in-digital-marketing" target="_blank">github.com/yWorks</a>.
+          </p>
+        </div>
+        <div class="ylogo-container">
+          <img src="assets/yworks-logo.svg" alt="yWorks logo" class="ylogo"/>
+          <div>
+            <a href="https://www.yworks.com/" target="_blank">https://www.yworks.com</a>
+            <div style="margin-top: 5px;">© 2019 yWorks GmbH, All rights reserved</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

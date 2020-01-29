@@ -1,0 +1,44 @@
+{
+  "name": "graphs-in-digital-marketing-yfiles-for-html",
+  "description": "The sample app for the yFiles use case Graphs in Digital Marketing Optimization",
+  "homepage": "https://www.yworks.com/use-case/graphs-in-digital-marketing",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "preinstall": "cd ../yFiles-for-HTML-Complete-2.2.0.3-Evaluation/ && npm pack lib/es-modules/",
+    "postinstall": "node copy-license.js",
+    "production": "webpack --mode production",
+    "dev": "webpack --mode development",
+    "start": "webpack-dev-server --mode development --open",
+    "prettier": "prettier --write **/*.{js,json,ts,css}"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.7.7",
+    "@babel/polyfill": "^7.4.0",
+    "@babel/preset-env": "^7.7.7",
+    "@babel/preset-typescript": "^7.7.7",
+    "@types/jquery": "^3.3.31",
+    "@yworks/optimizer": "^1.0.6",
+    "babel-loader": "^8.0.5",
+    "clean-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^5.1.1",
+    "css-loader": "^3.4.0",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.9.0",
+    "prettier": "^1.19.1",
+    "style-loader": "^1.1.1",
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.7.4",
+    "webpack": "^4.41.4",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.10.1"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.10.1",
+    "bootstrap": "^4.3.1",
+    "jquery": "^3.4.1",
+    "lodash": "^4.17.15",
+    "popper.js": "^1.15.0",
+    "yfiles": "../yFiles-for-HTML-Complete-2.2.0.3-Evaluation/yfiles-22.0.3-eval.tgz"
+  }
+}
