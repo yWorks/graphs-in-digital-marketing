@@ -1,12 +1,14 @@
 import * as _ from 'lodash'
 
 import {
+  EdgesSource,
   GraphBuilder,
   GraphComponent,
   HashMap,
   IEdge,
   IGraph,
   INode,
+  NodesSource,
   ShapeNodeStyle,
   SolidColorFill
 } from 'yfiles'
@@ -17,6 +19,9 @@ import { SankeyLayoutConfiguration } from './SankeyLayoutConfiguration'
 
 export class DataManager {
   private readonly graphBuilder: GraphBuilder
+  private readonly nodesSource: NodesSource<any>
+  private readonly edgesSource: EdgesSource<any>
+
   private largestThickness: number
   private readonly smallestThickness: number
   private graphComponent: GraphComponent
@@ -26,14 +31,19 @@ export class DataManager {
     this.largestThickness = 200
     this.smallestThickness = 2
 
-    this.graphBuilder = new GraphBuilder({
-      graph: graphComponent.graph,
-      sourceNodeBinding: 'source',
-      targetNodeBinding: 'target',
-      nodeIdBinding: 'id',
-      nodeLabelBinding: 'label',
-      edgeLabelBinding: 'label'
+    this.graphBuilder = new GraphBuilder(graphComponent.graph)
+    this.nodesSource = this.graphBuilder.createNodesSource({
+      data: [],
+      id: 'id'
     })
+    this.nodesSource.nodeCreator.createLabelBinding(nodeDataItem => nodeDataItem.label)
+
+    this.edgesSource = this.graphBuilder.createEdgesSource({
+      data: [],
+      sourceId: 'source',
+      targetId: 'target'
+    })
+    this.edgesSource.edgeCreator.createLabelBinding(edgeDataItem => edgeDataItem.label)
   }
 
   get graph(): IGraph {
@@ -43,8 +53,8 @@ export class DataManager {
   async createJourney(incremental = false, threshold = 16000) {
     const json = this.processTriples(threshold)
 
-    this.graphBuilder.nodesSource = json.nodes
-    this.graphBuilder.edgesSource = json.edges
+    this.graphBuilder.setData(this.nodesSource, json.nodes)
+    this.graphBuilder.setData(this.edgesSource, json.edges)
 
     const incrementalNodes: INode[] = []
     const conversionNode = this.findConversionNode()
@@ -60,7 +70,9 @@ export class DataManager {
 
     const oldTags = new HashMap<INode, object>()
     this.graph.nodes.forEach(node => oldTags.set(node, node.tag))
-    const nodeUpdatedListener = (sender, args) => (args.item.tag = oldTags.get(args.item))
+    const nodeUpdatedListener = (sender, args) => {
+      args.item.tag = oldTags.get(args.item)
+    }
 
     const incrementalEdges: IEdge[] = []
     const edgeCreatedListener = (sender, args) => incrementalEdges.push(args.item)
@@ -130,15 +142,17 @@ export class DataManager {
 
     // find the minimum and maximum flow value from the graph's edge labels
     this.graph.edges.forEach(edge => {
-      const labels = edge.labels
+      const tag = edge.tag
 
-      if (labels.size > 0) {
-        // @ts-ignore
-        const labelText = !isNaN(labels.get(0).text) ? labels.get(0).text : '1'
-        const value = Math.max(0, parseFloat(labelText))
-        min = Math.min(min, value)
-        max = Math.max(max, Math.abs(value))
+      if (tag == null) {
+        throw new Error("Edge is missing required 'tag' instance")
       }
+      const value = Math.max(0, parseFloat(edge.tag.value))
+      if (Number.isNaN(value)) {
+        return
+      }
+      min = Math.min(min, value)
+      max = Math.max(max, value)
     })
 
     const diff = max - min
@@ -147,12 +161,16 @@ export class DataManager {
 
     // normalize the thickness of the graph's edges
     this.graph.edges.forEach(edge => {
-      const labels = edge.labels
-      // @ts-ignore
-      if (labels.size === 0 || isNaN(diff) || isNaN(parseFloat(edge.labels.get(0).text))) {
+      const tag = edge.tag
+
+      if (tag == null) {
+        return
+      }
+      const value = Math.max(0, parseFloat(edge.tag.value))
+
+      if (isNaN(value)) {
         edge.tag.thickness = 2
       } else {
-        const value = Math.max(0, parseFloat(edge.labels.get(0).text))
         const thicknessScale = (largestThickness - smallestThickness) / diff
         edge.tag.thickness = Math.floor(this.smallestThickness + (value - min) * thicknessScale)
       }

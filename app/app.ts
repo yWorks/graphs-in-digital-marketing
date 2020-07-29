@@ -3,19 +3,11 @@ import '@fortawesome/fontawesome-free/js/fontawesome'
 import '@fortawesome/fontawesome-free/js/solid'
 import {
   Class,
-  Color,
-  DefaultLabelStyle,
-  Font,
   GraphComponent,
   GraphItemTypes,
   GraphViewerInputMode,
-  INode,
-  InteriorStretchLabelModel,
   LayoutExecutor,
-  License,
-  ShapeNodeStyle,
-  Size,
-  SolidColorFill
+  License
 } from 'yfiles'
 import './styles/style.css'
 import { DataManager } from './DataManager'
@@ -55,7 +47,6 @@ class MarketingApp {
     this.registerCommands()
   }
 
-
   /**
    * Creates and initializes the input mode for this app.
    */
@@ -88,7 +79,6 @@ class MarketingApp {
     const layoutButton = $('#layoutButton')
     layoutButton.on('click', () => this.runLayout())
   }
-
 
   async createJourney(incremental = false, threshold = 16000) {
     if (this.inLayout) {
