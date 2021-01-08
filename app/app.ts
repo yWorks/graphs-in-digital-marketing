@@ -7,7 +7,7 @@ import {
   GraphItemTypes,
   GraphViewerInputMode,
   LayoutExecutor,
-  License
+  License,
 } from 'yfiles'
 import './styles/style.css'
 import { DataManager } from './DataManager'

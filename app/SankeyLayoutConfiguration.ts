@@ -15,7 +15,7 @@ import {
   PortConstraint,
   PortSide,
   PreferredPlacementDescriptor,
-  YNode
+  YNode,
 } from 'yfiles'
 
 /**
@@ -32,7 +32,7 @@ export class SankeyLayoutConfiguration {
       layoutOrientation: LayoutOrientation.LEFT_TO_RIGHT,
       layoutMode: incremental ? LayoutMode.INCREMENTAL : LayoutMode.FROM_SCRATCH,
       nodeToNodeDistance: 30,
-      backLoopRouting: true
+      backLoopRouting: true,
     })
     hierarchicLayout.edgeLayoutDescriptor.minimumFirstSegmentLength = 80
     hierarchicLayout.edgeLayoutDescriptor.minimumLastSegmentLength = 80
@@ -68,14 +68,14 @@ export class SankeyLayoutConfiguration {
     // create the layout data
     let hierarchicLayoutData = new HierarchicLayoutData({
       // maps each edge with its thickness so that the layout algorithm takes the edge thickness under consideration
-      edgeThickness: edge => edge.tag.thickness,
+      edgeThickness: (edge) => edge.tag.thickness,
       // since orientation is LEFT_TO_RIGHT, we add port constraints so that the edges leave the source node at its
       // right side and enter the target node at its left side
       sourcePortConstraints: PortConstraint.create(PortSide.EAST, false),
       targetPortConstraints: PortConstraint.create(PortSide.WEST, false),
       edgeLabelPreferredPlacement: new PreferredPlacementDescriptor({
-        placeAlongEdge: LabelPlacements.AT_SOURCE
-      })
+        placeAlongEdge: LabelPlacements.AT_SOURCE,
+      }),
     })
     if (incrementalNodes && incrementalNodes.length > 0) {
       hierarchicLayoutData.incrementalHints.incrementalLayeringNodes.items = List.fromArray(
@@ -127,7 +127,7 @@ class NodeResizingStage extends LayoutStageBase {
    * @param {LayoutGraph} graph The given graph
    */
   applyLayout(graph) {
-    graph.nodes.forEach(node => {
+    graph.nodes.forEach((node) => {
       this.adjustNodeSize(node, graph)
     })
 
@@ -162,7 +162,7 @@ class NodeResizingStage extends LayoutStageBase {
     // adjust size for edges with strong port constraints
     const edgeThicknessDP = graph.getDataProvider(HierarchicLayout.EDGE_THICKNESS_DP_KEY)
     if (edgeThicknessDP !== null) {
-      node.edges.forEach(edge => {
+      node.edges.forEach((edge) => {
         const thickness = edgeThicknessDP.getNumber(edge)
 
         const spc = PortConstraint.getSPC(graph, edge)
@@ -193,7 +193,7 @@ class NodeResizingStage extends LayoutStageBase {
     let requiredSpace = 0
     const edgeThicknessDP = graph.getDataProvider(HierarchicLayout.EDGE_THICKNESS_DP_KEY)
     let count = 0
-    edges.forEach(edge => {
+    edges.forEach((edge) => {
       const thickness = edgeThicknessDP === null ? 0 : edgeThicknessDP.getNumber(edge)
       requiredSpace += Math.max(thickness, 1)
       count++

@@ -6,13 +6,12 @@ This repository contains the sample application for the yFiles use case about
 [Digital Marketing Optimization](https://www.yworks.com/use-case/graphs-in-digital-marketing-optimization).
 The app displays a Sankey diagram of the different paths that visitors take on a website - from the page first viewed all the way to a conversion. Users can interactively filter the network to concentrate on the parts of interest.
 
-
 ## See also
 
-* [Watch the introductory video](https://www.youtube.com/channel/UC6GqOEPI6Xrhy4ylDKHP0Aw) of this app
-* [Try the app online](https://live.yworks.com/demos/use-case/digital-marketing)
-* [Read the article](https://www.yworks.com/use-case/graphs-in-digital-marketing-optimization) about _Graphs in Digital Marketing Optimization_
-* [Learn more about yFiles](https://www.yworks.com/products/yfiles), the software library for visualizing, editing, and analyzing graphs
+- [Watch the introductory video](https://www.youtube.com/channel/UC6GqOEPI6Xrhy4ylDKHP0Aw) of this app
+- [Try the app online](https://live.yworks.com/demos/use-case/digital-marketing)
+- [Read the article](https://www.yworks.com/use-case/graphs-in-digital-marketing-optimization) about _Graphs in Digital Marketing Optimization_
+- [Learn more about yFiles](https://www.yworks.com/products/yfiles), the software library for visualizing, editing, and analyzing graphs
 
 If you have any questions or suggestions, send us an email at [consulting@yworks.com](mailto:consulting@yworks.com)
 or call [+49 7071 9709050](tel:+4970719709050).
@@ -28,18 +27,20 @@ Checkout this project, then extract the yFiles for HTML package to a directory n
 ```
 documents
  |-- graphs-in-digital-marketing
- |-- yFiles-for-HTML-Complete-2.3.0.2-Evaluation
+ |-- yFiles-for-HTML-Complete-2.3.0.4-Evaluation
 ```
 
 Afterwards, enter the `graphs-in-digital-marketing` directory and run the usual commands
+
 ```
 npm i
 ```
+
 followed by
+
 ```
 npm start
 ```
-
 
 ## About
 
@@ -61,9 +62,10 @@ If you have any questions or suggestions, send us an email at [consulting@yworks
 or call [+49 7071 9709050](tel:+4970719709050).
 
 ## License
+
 The MIT License (MIT)
 
-Copyright (c) 2020 yWorks GmbH
+Copyright (c) 2021 yWorks GmbH
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 

@@ -9,7 +9,7 @@ import {
   Point,
   Rect,
   SvgVisual,
-  Visual
+  Visual,
 } from 'yfiles'
 
 /**
@@ -97,7 +97,7 @@ export class SankeyEdgeStyle extends EdgeStyleBase {
         self.thickness === other.thickness &&
         self.color === other.color &&
         self.path.hasSameValue(other.path) &&
-        self.selected === other.selected
+        self.selected === other.selected,
     }
   }
 
@@ -182,7 +182,7 @@ export class SankeyEdgeStyle extends EdgeStyleBase {
     const path = new GeneralPath()
     const overShoot = new Point(2, 0)
     path.moveTo(edge.sourcePort.location.subtract(overShoot))
-    edge.bends.forEach(bend => {
+    edge.bends.forEach((bend) => {
       path.lineTo(bend.location)
     })
     path.lineTo(edge.targetPort.location.add(overShoot))
@@ -226,9 +226,7 @@ export class SankeyEdgeStyle extends EdgeStyleBase {
     if (edge.tag && edge.tag.thickness) {
       thickness = edge.tag.thickness * 0.5
     }
-    return this.getPath(edge)
-      .getBounds()
-      .getEnlarged(thickness)
+    return this.getPath(edge).getBounds().getEnlarged(thickness)
   }
 
   static randomId(length = 10) {

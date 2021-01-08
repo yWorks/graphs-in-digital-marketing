@@ -19,7 +19,7 @@ import {
   Size,
   SolidColorFill,
   StyleDecorationZoomPolicy,
-  VoidLabelStyle
+  VoidLabelStyle,
 } from 'yfiles'
 import { SankeyEdgeStyle } from './SankeyEdgeStyle'
 
@@ -35,7 +35,7 @@ export class Styling {
     // set the default style for the nodes and edges
     graph.nodeDefaults.style = new ShapeNodeStyle({
       fill: new SolidColorFill(this.getNodeColor()),
-      stroke: null
+      stroke: null,
     })
 
     // use a label model that stretches the label over the full node layout, with small insets
@@ -48,11 +48,11 @@ export class Styling {
       font: new Font({
         fontFamily,
         fontSize: 16,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
       }),
       wrapping: 'word',
       verticalTextAlignment: 'center',
-      horizontalTextAlignment: 'center'
+      horizontalTextAlignment: 'center',
     })
 
     // set the default node size
@@ -66,8 +66,8 @@ export class Styling {
       font: new Font({
         fontFamily,
         fontSize: 16,
-        fontWeight: 'normal'
-      })
+        fontWeight: 'normal',
+      }),
     })
 
     // add a node tag listener to change the node color when the tag changes
@@ -88,18 +88,18 @@ export class Styling {
           new ShapeNodeStyle({
             shape: ShapeNodeShape.ROUND_RECTANGLE,
             stroke: '1px white',
-            fill: null
+            fill: null,
           }),
           VoidLabelStyle.INSTANCE
         ),
         margins: new Insets(5, 2, 5, 2),
-        zoomPolicy: StyleDecorationZoomPolicy.WORLD_COORDINATES
+        zoomPolicy: StyleDecorationZoomPolicy.WORLD_COORDINATES,
       })
     )
     graphDecorator.edgeDecorator.highlightDecorator.setImplementation(
       new EdgeStyleDecorationInstaller({
         edgeStyle: new SankeyEdgeStyle(true),
-        zoomPolicy: StyleDecorationZoomPolicy.WORLD_COORDINATES
+        zoomPolicy: StyleDecorationZoomPolicy.WORLD_COORDINATES,
       })
     )
 
@@ -116,7 +116,7 @@ export class Styling {
       if (item) {
         highlightManager.addHighlight(item)
         if (IEdge.isInstance(item)) {
-          item.labels.forEach(label => {
+          item.labels.forEach((label) => {
             highlightManager.addHighlight(label)
           })
         } else if (ILabel.isInstance(item)) {

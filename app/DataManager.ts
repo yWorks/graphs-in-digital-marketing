@@ -10,7 +10,7 @@ import {
   INode,
   NodesSource,
   ShapeNodeStyle,
-  SolidColorFill
+  SolidColorFill,
 } from 'yfiles'
 import triples from './data/triples'
 import names from './data/names'
@@ -34,16 +34,16 @@ export class DataManager {
     this.graphBuilder = new GraphBuilder(graphComponent.graph)
     this.nodesSource = this.graphBuilder.createNodesSource({
       data: [],
-      id: 'id'
+      id: 'id',
     })
-    this.nodesSource.nodeCreator.createLabelBinding(nodeDataItem => nodeDataItem.label)
+    this.nodesSource.nodeCreator.createLabelBinding((nodeDataItem) => nodeDataItem.label)
 
     this.edgesSource = this.graphBuilder.createEdgesSource({
       data: [],
       sourceId: 'source',
-      targetId: 'target'
+      targetId: 'target',
     })
-    this.edgesSource.edgeCreator.createLabelBinding(edgeDataItem => edgeDataItem.label)
+    this.edgesSource.edgeCreator.createLabelBinding((edgeDataItem) => edgeDataItem.label)
   }
 
   get graph(): IGraph {
@@ -69,7 +69,7 @@ export class DataManager {
     }
 
     const oldTags = new HashMap<INode, object>()
-    this.graph.nodes.forEach(node => oldTags.set(node, node.tag))
+    this.graph.nodes.forEach((node) => oldTags.set(node, node.tag))
     const nodeUpdatedListener = (sender, args) => {
       args.item.tag = oldTags.get(args.item)
     }
@@ -113,7 +113,7 @@ export class DataManager {
     const colorMargin = 0.2
     const saturation = 0.6
     const step = (1.0 - 2 * colorMargin) / columnX.length
-    const heatColors = _.range(colorMargin, 1 - colorMargin, step).map(value =>
+    const heatColors = _.range(colorMargin, 1 - colorMargin, step).map((value) =>
       DataManager.hslToRgb(217 / 360, saturation, value)
     )
     this.graph.nodes.forEach((n: INode) => {
@@ -125,7 +125,7 @@ export class DataManager {
   }
 
   private findConversionNode() {
-    return this.graph.nodes.find(node => node.labels.some(l => l.text === 'Conversion'))
+    return this.graph.nodes.find((node) => node.labels.some((l) => l.text === 'Conversion'))
   }
 
   /**
@@ -141,7 +141,7 @@ export class DataManager {
     }
 
     // find the minimum and maximum flow value from the graph's edge labels
-    this.graph.edges.forEach(edge => {
+    this.graph.edges.forEach((edge) => {
       const tag = edge.tag
 
       if (tag == null) {
@@ -160,7 +160,7 @@ export class DataManager {
     const smallestThickness = 2
 
     // normalize the thickness of the graph's edges
-    this.graph.edges.forEach(edge => {
+    this.graph.edges.forEach((edge) => {
       const tag = edge.tag
 
       if (tag == null) {
@@ -196,10 +196,10 @@ export class DataManager {
 
     function kruskal(nodes: string[], edges) {
       const mst = []
-      let forest = _.map(nodes, function(node) {
+      let forest = _.map(nodes, function (node) {
         return [node]
       })
-      const sortedEdges = _.sortBy(edges, function(edge) {
+      const sortedEdges = _.sortBy(edges, function (edge) {
         return -edge[2]
       })
       while (forest.length > 1) {
@@ -208,11 +208,11 @@ export class DataManager {
         const n1 = edge[0],
           n2 = edge[1]
 
-        const t1 = _.filter(forest, function(tree) {
+        const t1 = _.filter(forest, function (tree) {
           return _.includes(tree, n1)
         })
 
-        const t2 = _.filter(forest, function(tree) {
+        const t2 = _.filter(forest, function (tree) {
           return _.includes(tree, n2)
         })
 
@@ -242,7 +242,7 @@ export class DataManager {
         UnclassifiedFrequency: '?',
         Conversion: '?',
         ClAvgTime: '?',
-        NclAvgTime: '?'
+        NclAvgTime: '?',
       }
 
       json.edges.push({
@@ -253,7 +253,7 @@ export class DataManager {
         ncl: parseInt(stats.UnclassifiedFrequency),
         con: parseFloat(stats.Conversion),
         cltTime: parseFloat(stats.ClAvgTime),
-        nclTime: parseFloat(stats.NclAvgTime)
+        nclTime: parseFloat(stats.NclAvgTime),
       })
     }
     for (k = 0; k < usedTouchpoints.length; k++) {
@@ -261,9 +261,9 @@ export class DataManager {
       json.nodes.push({
         name: usedTouchpoints[k].toString(),
         label: DataManager.getURL(usedTouchpoints[k].toString()),
-        id: id
+        id: id,
       })
-      const foundMerge = _.find(json.edges, e => e.source == id && e.target == 'F')
+      const foundMerge = _.find(json.edges, (e) => e.source == id && e.target == 'F')
       if (_.isNil(foundMerge) && id !== 'F') {
         // conversion does not lead to conversion
         json.edges.push({
@@ -274,7 +274,7 @@ export class DataManager {
           ncl: null,
           con: null,
           cltTime: null,
-          nclTime: null
+          nclTime: null,
         })
       }
     }

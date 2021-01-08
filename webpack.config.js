@@ -7,17 +7,17 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 
-module.exports = function(env, options) {
+module.exports = function (env, options) {
   const config = {
     entry: ['core-js/stable', 'regenerator-runtime/runtime', './app/app.ts'],
 
     output: {
       path: path.resolve(__dirname, 'dist'),
-      filename: '[name].js'
+      filename: '[name].js',
     },
     resolve: {
       // Add '.ts' and '.tsx' as a resolvable extension.
-      extensions: ['.webpack.js', '.web.js', '.ts', '.tsx', '.js', '.jsx']
+      extensions: ['.webpack.js', '.web.js', '.ts', '.tsx', '.js', '.jsx'],
     },
     module: {
       rules: [
@@ -28,19 +28,19 @@ module.exports = function(env, options) {
           loader: 'babel-loader',
           options: {
             presets: ['@babel/preset-env', '@babel/preset-typescript'],
-            plugins: ['@babel/plugin-proposal-object-rest-spread']
-          }
+            plugins: ['@babel/plugin-proposal-object-rest-spread'],
+          },
         },
         {
           test: /\.css$/,
           use: [MiniCssExtractPlugin.loader, 'css-loader'],
-          sideEffects: true
+          sideEffects: true,
         },
         {
           test: /\.(png|svg|jpg|gif)$/,
-          use: ['file-loader']
-        }
-      ]
+          use: ['file-loader'],
+        },
+      ],
     },
     optimization: {
       splitChunks: {
@@ -48,41 +48,41 @@ module.exports = function(env, options) {
           lib: {
             test: /([\\/]lib)|([\\/]node_modules[\\/])/,
             name: 'lib',
-            chunks: 'all'
-          }
-        }
-      }
+            chunks: 'all',
+          },
+        },
+      },
     },
     plugins: [
       new CleanWebpackPlugin(),
       // https://stackoverflow.com/questions/28969861/managing-jquery-plugin-dependency-in-webpack
       new webpack.ProvidePlugin({
         $: 'jquery',
-        jQuery: 'jquery'
+        jQuery: 'jquery',
       }),
       new MiniCssExtractPlugin({
         filename: '[name].css',
-        chunkFilename: '[id].css'
+        chunkFilename: '[id].css',
       }),
       new HtmlWebpackPlugin({
         template: 'app/index.html',
-        alwaysWriteToDisk: true
+        alwaysWriteToDisk: true,
       }),
       new CopyPlugin([
         { from: 'app/assets', to: 'assets' },
         { from: 'app/styles', to: 'styles' },
-        { from: 'app/favicon.ico', to: 'favicon.ico' }
-      ])
+        { from: 'app/favicon.ico', to: 'favicon.ico' },
+      ]),
     ],
     performance: {
-      hints: false
-    }
+      hints: false,
+    },
   }
 
   config.devServer = {
     contentBase: [path.join(__dirname, './app')],
     compress: true,
-    port: 8085
+    port: 8085,
   }
 
   if (options.mode === 'development') {
@@ -92,7 +92,7 @@ module.exports = function(env, options) {
       new webpack.SourceMapDevToolPlugin({
         filename: '[file].map',
         // add source maps for non-library code to enable convenient debugging
-        exclude: ['lib.js']
+        exclude: ['lib.js'],
       })
     )
   }
@@ -102,7 +102,7 @@ module.exports = function(env, options) {
     config.plugins.unshift(
       new yWorksOptimizer({
         logLevel: 'info',
-        blacklist: ['union', 'range']
+        blacklist: ['union', 'range'],
       })
     )
   }
