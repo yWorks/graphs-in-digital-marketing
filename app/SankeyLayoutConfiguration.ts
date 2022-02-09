@@ -78,14 +78,12 @@ export class SankeyLayoutConfiguration {
       }),
     })
     if (incrementalNodes && incrementalNodes.length > 0) {
-      hierarchicLayoutData.incrementalHints.incrementalLayeringNodes.items = List.fromArray(
-        incrementalNodes
-      )
+      hierarchicLayoutData.incrementalHints.incrementalLayeringNodes.items =
+        List.fromArray(incrementalNodes)
     }
     if (incrementalEdges && incrementalEdges.length > 0) {
-      hierarchicLayoutData.incrementalHints.incrementalSequencingItems.items = List.fromArray(
-        incrementalEdges
-      )
+      hierarchicLayoutData.incrementalHints.incrementalSequencingItems.items =
+        List.fromArray(incrementalEdges)
     }
     return hierarchicLayoutData
   }
